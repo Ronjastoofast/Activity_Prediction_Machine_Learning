@@ -67,6 +67,7 @@ This project follows an iterative workflow:
 
 **Decision:**  
 - Validate IC50 data before making important decisions from it.
+
 **Outcome**
 - Other IC50's look valid
 <img src="images/goodic50.png" width="500">  
