@@ -1,4 +1,4 @@
-# Activity_Prediction_Machine_Learning
+# Activity_Prediction_Machine_Learning iteration 1
 Machine learning analysis of EU-OPENSCREEN data to predict compound activity and identify important molecular features.
 
 ---
@@ -43,7 +43,10 @@ This project follows an iterative workflow:
 
 ### 1. A single outlier dominates model behaviour
 
-- One compound has activity orders of magnitude worse than all others  
+- One molecular fingerprint feature (ECFP4_70) is the most important in the model
+<img src="images/feature_importance1.png" width="500">
+
+- Only one compound has this feature, and has activity orders of magnitude worse than all others  
 
 **Effect:**  
 - Strongly drives feature importance (e.g. ECFP4_70)  
@@ -56,13 +59,17 @@ This project follows an iterative workflow:
 ### 2. IC50 generation requires validation.
 
 - IC50 values generated automatically from dose–response data  
-- Fit for the inactive compound above was unreliable  
+- Fit for the inactive compound above was unreliable
+   <img src="images/badic50.png" width="500">
 
 **Effect:**  
 - unreliable data was introduced into modelling  
 
 **Decision:**  
 - Validate IC50 data before making important decisions from it.
+**Outcome**
+- Other IC50's look valid
+<img src="images/goodic50.png" width="500">  
 ---
 ### 3. Feature importance must be validated before use in feature engineering
 
