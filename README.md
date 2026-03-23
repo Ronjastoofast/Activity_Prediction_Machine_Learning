@@ -1,2 +1,2 @@
 # Activity_Prediction_Machine_Learning
-Training a ML model on molecular descriptors and activity data to investigate molecular features affecting activity
+ML analysis of chemical data focused on using model outputs to identify reliable signals and guide feature engineering for improved prediction.
