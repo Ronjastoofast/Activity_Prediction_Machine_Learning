@@ -1,1 +1,19 @@
+The workflow for this code is as follows:
 
+EOS_data.csv is the raw data
+
+1. generate_IC50 uses EOS_data.csv to generate ic50_results.csv
+
+2. generate_molecular_descriptors uses ic50_results.csv and generates descriptors.csv
+
+3. Test_different_ML_models uses descriptors.csv to test different models ability to predict pIC50 
+
+4. train_and_save_XGBoost_model uses descriptors.csv to train and save a ML model
+
+5. plot_feature_importance uses the model and descriptors.csv and plots the importance of different feature columns
+
+6. find_molecules_by_ecfp4_bit uses descriptors.csv and the number of an ecfp4 bit (for example, ecfp4_70), generates compounds_with_ecfp_X.csv
+
+7. plot_IC50 uses EOS_data.csv and a SMILES code (can be obtained from any of the above .csv files) and plots the IC50 curve
+
+**I run this sequence in PyCharm**
