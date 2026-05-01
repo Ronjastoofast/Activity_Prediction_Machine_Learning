@@ -5,7 +5,7 @@ Machine learning analysis of EU-OPENSCREEN data to predict compound activity and
 
 ## Overview
 
-This project builds machine learning models to predict compound activity (pIC50) from experimental data and molecular descriptors. The goal is not only predict activity, but to understand how model outputs can be used to design more meaningful features. 
+This project builds machine learning models to predict compound activity (pIC50) from experimental data and molecular descriptors. The goal is not only to predict activity, but to understand how model outputs can guide the design of more meaningful chemical features.
 
 This project follows an iterative workflow:
 - train models on standard descriptors 
@@ -50,16 +50,23 @@ This project follows an iterative workflow:
 
 **Effect:**  
 - Strongly drives feature importance (e.g. ECFP4_70)  
-- Distorts model learning  
+- Distorts model learning towards a single extreme example
+
+**Interpretation:**  
+- The objective of the modelling workflow was to identify chemical features associated with improved binding/activity  
+- A feature in only one compound that is associated with extremely poor activity is not useful for identifying broadly transferable design principles  
 
 **Decision:**  
-- Treat as unreliable/extreme data point  
-- Remove from dataset for further modelling  
+- Remove the compound from subsequent modelling iterations  
+- Focus modelling on learning generalisable chemical features associated with improved activity
+  
 ---
+
 ### 2. IC50 generation requires validation.
 
 - IC50 values generated automatically from dose–response data  
 - Fit for the inactive compound above was unreliable
+  
    <img src="images/badic50.png" width="500">
 
 **Effect:**  
@@ -69,9 +76,12 @@ This project follows an iterative workflow:
 - Validate IC50 data before making important decisions from it.
 
 **Outcome**
-- Other IC50's look valid
-<img src="images/goodic50.png" width="500">  
+- Dose-response curves for other compounds produce reasonable fits and so have more reliable calculated IC50 values
+  
+<img src="images/goodic50.png" width="500">
+
 ---
+
 ### 3. Feature importance must be validated before use in feature engineering
 
 - Important features initially reflected a single outlier 
@@ -82,24 +92,25 @@ This project follows an iterative workflow:
 **Decision:** 
 - Use feature importance as a starting point for investigation, not as final signal 
 - Validate features before incorporating them into feature engineering workflows
+
 ---
 
 ### 4. Removing unreliable data reduces apparent model performance
 
-**Observation:**  
+**Observation:**
 - Model performance (R²) decreases after removing the outlier  
 
-**Interpretation:**  
-- Initial model was partially learning artefacts rather than general trends  
+**Interpretation:**
+- Initial model was partially learning artefacts rather than general trends
 
-**Decision:**  
-- Accept lower performance in favour of a more reliable model  
+**Decision:**
+- Accept lower performance in favour of a more reliable model
 
 ---
 
 ### 5. Descriptor space is large relative to dataset size
 
-- Multiple descriptor sets used (RDKit + MACCS + ECFP4)  
+- Multiple descriptor sets used (RDKit + MACCS + ECFP4) 
 
 **Effect:**  
 - High dimensional feature space relative to dataset size  
@@ -107,9 +118,10 @@ This project follows an iterative workflow:
 
 **Decision:**  
 - Prioritise feature reduction and selection in future iterations  
--try to use the model outputs to transition from fingerprint-based descritors to chemically meaningful, engineered features
+- Use model outputs to guide transition from generic fingerprint descriptors toward more chemically meaningful engineered features
 
 ---
+
 ## Feature Engineering Strategy
 
 A key objective of this project was to move beyond standard descriptor-based modelling and use model outputs to guide the design of more meaningful features.
@@ -198,6 +210,7 @@ Use identified fragments and substructures to:
 - Reduce the number of features  (screen random removal of features, and focus on the features with the highest importance in the existing model)
 - Introduce cross-validation for more robust evaluation  
 - Identify important features in the new model, and investigate these to generate more chemically meaningful features (electrostatics, interactions from docking with the target)
+- Combine model-driven feature analysis with manual SAR inspection of high-activity compounds to identify chemically meaningful structural trends for future feature engineering
 
 ---
 
@@ -206,9 +219,9 @@ Use identified fragments and substructures to:
 This project focuses on the interface between experimental data, feature design, and machine learning:
 
 - identifying when models are learning real signal vs artefacts 
-- using model outputs to guide feature engineering 
-- iterating from raw descriptors to more meaningful, interpretable features 
+- using model outputs to guide feature engineering
+- iterating from generic descriptors toward chemically meaningful and interpretable features through combined model analysis and domain expertise 
 
-This reflects a workflow where modelling is not the end point, but a tool for improving how experimental data is represented and used.
+This project reflects an iterative scientific ML workflow where model outputs are combined with chemical intuition and SAR analysis to distinguish meaningful signal from artefacts, guide feature engineering, and improve how experimental data is represented for predictive modelling.
 ---
 
