@@ -12,8 +12,8 @@ This project follows an iterative workflow:
 
 
 ## Project Structure
-- Iteration 1: baseline modelling → [link](iteration_1.md)
-- Iteration 2: feature engineering → [link](iteration_2.md)
+- Iteration 1: baseline modelling → [link](iteration1.md)
+- Iteration 2: feature engineering → [link](iteration2.md)
 
 ## Key Takeaway
 Iteration 1 built the workflow. a compound was removed from the dataset because its very low activity was skewing the model.
