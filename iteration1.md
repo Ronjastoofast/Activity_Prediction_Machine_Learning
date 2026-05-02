@@ -46,19 +46,20 @@ This project follows an iterative workflow:
 - One molecular fingerprint feature (ECFP4_70) is the most important in the model
 <img src="images/feature_importance1.png" width="500">
 
-- Only one compound has this feature, and has activity orders of magnitude worse than all others  
+- Only one compound in this dataset has this feature
 
 **Effect:**  
 - Strongly drives feature importance (e.g. ECFP4_70)  
 - Distorts model learning towards a single extreme example
 
 **Interpretation:**  
-- The objective of the modelling workflow was to identify chemical features associated with improved binding/activity  
-- A feature in only one compound that is associated with extremely poor activity is not useful for identifying broadly transferable design principles  
+- The objective of the modelling workflow was to identify chemical features associated with broadly transferable binding/activity trends  
+- A feature present in only one compound is difficult to generalise from during model training and may dominate learning disproportionately relative to its chemical relevance  
 
 **Decision:**  
-- Remove the compound from subsequent modelling iterations  
-- Focus modelling on learning generalisable chemical features associated with improved activity
+- Trial removal of the compound from subsequent modelling iterations  
+- Future work could involve generating a more reliable IC50 estimate for the compound and reassessing its inclusion in the training set 
+
   
 ---
 
@@ -70,13 +71,14 @@ This project follows an iterative workflow:
    <img src="images/badic50.png" width="500">
 
 **Effect:**  
-- unreliable data was introduced into modelling  
+- unreliable potency estimates were introduced into modelling  
 
 **Decision:**  
-- Validate IC50 data before making important decisions from it.
+- Validate IC50 fitting quality before using derived potency values for modelling decisions
 
 **Outcome**
-- Dose-response curves for other compounds produce reasonable fits and so have more reliable calculated IC50 values
+- Manual inspection of additional representative dose–response curves suggested that the fitting issue was not widespread, although systematic validation across the full dataset was not performed at this stage
+- Future iterations could revisit problematic compounds using alternative fitting approaches or additional experimental measurements
   
 <img src="images/goodic50.png" width="500">
 
@@ -185,8 +187,9 @@ Use identified fragments and substructures to:
 **Interpretation:**  
 - Trade-off between fit and generalisation  
 - Too many features for the amount of data
+  
 **Decision**
--investigate importance of different features and what they represent, to refine feature columns.
+- investigate which features reflect meaningful chemistry in order to refine feature selection
 ---
 
 ## Limitations
@@ -211,6 +214,8 @@ Use identified fragments and substructures to:
 - Introduce cross-validation for more robust evaluation  
 - Identify important features in the new model, and investigate these to generate more chemically meaningful features (electrostatics, interactions from docking with the target)
 - Combine model-driven feature analysis with manual SAR inspection of high-activity compounds to identify chemically meaningful structural trends for future feature engineering
+- develop automated methods to flag potentially unreliable IC50 fits and dose–response curves prior to modelling
+- expand validation beyond manual inspection of representative examples to enable scalable quality control across the full dataset
 
 ---
 
